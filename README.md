@@ -1,2 +1,2 @@
 # maze-runner
-Exit out of the labyrinth game built using javascript
+Run out of the maze as fast as you can!

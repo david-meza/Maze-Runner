@@ -68,6 +68,6 @@ function newMaze(x, y) {
       currentCell = path.pop();
     }
   }
-  console.log(cells);
+  // console.log(cells);
   return cells;
 }

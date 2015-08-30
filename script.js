@@ -33,8 +33,7 @@ var mazeModel = {
     }
     // Left [0][0]... to [mazeHeight][0]
     // Right [0][MazeWidth]... to [mazeHeight][mazeWidth]
-    // Does not add 4 board corners again
-    for (var xCoord = 1; xCoord < this.mazeHeight - 1; xCoord++) {
+    for (var xCoord = 0; xCoord < this.mazeHeight; xCoord++) {
       var leftCell = cells[xCoord][0];
       var rightCell = cells[xCoord][this.mazeWidth-1];
       leftCell.isBorder = true;
@@ -42,6 +41,8 @@ var mazeModel = {
       this.borders.push(leftCell);
       this.borders.push(rightCell);
     }
+
+    console.log(this.borders)
 
   },
 
@@ -58,8 +59,8 @@ var mazeModel = {
       var exitVal = Math.floor(Math.random() * this.mazeWidth) * 2 + 1;
       this.exit = this.borders[exitVal]
       this.entrance.hasTopWall = false;
+      this.entrance.entrancePoint = "top";
       this.exit.hasBottomWall = false;
-      view.showEntranceExit("top");
 
     } else if (entranceVal <= this.mazeWidth * 2 - 2 && entranceVal % 2 === 1) {
       // Entrance value is a bottom border
@@ -67,25 +68,26 @@ var mazeModel = {
       this.exit = this.borders[exitVal]
       this.entrance.hasBottomWall = false;
       this.exit.hasTopWall = false;
-      view.showEntranceExit("bottom");
+      this.entrance.entrancePoint = "bottom";
 
     } else if (entranceVal % 2 === 0) {
       // Entrance value is a left border
-      var exitVal = Math.floor(Math.random() * this.mazeHeight - 2) * 2 + 60 + 1;
+      var exitVal = Math.floor(Math.random() * this.mazeHeight) * 2 + this.mazeWidth * 2 + 1;
       this.exit = this.borders[exitVal]
       this.entrance.hasLeftWall = false;
       this.exit.hasRightWall = false;
-      view.showEntranceExit("left");
+      this.entrance.entrancePoint = "left";
 
     } else if (entranceVal % 2 === 1) {
       // Entrance value is a right border
-      var exitVal = Math.floor(Math.random() * this.mazeHeight - 2) * 2 + 60;
+      var exitVal = Math.floor(Math.random() * this.mazeHeight) * 2 + this.mazeWidth * 2;
       this.exit = this.borders[exitVal]
-      this.entrance.hasLeftWall = false;
-      this.exit.hasRightWall = false;
-      view.showEntranceExit("right");
+      this.entrance.hasRightWall = false;
+      this.exit.hasLeftWall = false;
+      this.entrance.entrancePoint = "right";
     };
-
+    console.log(entranceVal);
+    console.log(exitVal);
     console.log(this.entrance);
     console.log(this.exit);
   }
@@ -95,11 +97,12 @@ var mazeModel = {
 var view = {
 
   init: function () {
-    this.addMazeBorders();
+    this.buildMazeWalls();
+    this.placeEntranceCell();
     this.showEntranceExit();
   },
 
-  addMazeBorders: function () {
+  buildMazeWalls: function () {
     // To shorten the name...
     var cells = mazeModel.mazeCells
     for (var i = 0; i < cells.length; i++) {
@@ -116,20 +119,57 @@ var view = {
     }
   },
 
-  showEntranceExit: function (entrance) {
-    // $entranceCell = $("#" + mazeModel.entrance.id)
-    // $exitCell = $("#" + mazeModel.exit.id)
-    // console.log($entranceCell);
-    // console.log($exitCell);
-    // switch(entrance) {
-    //   case "top":
-    //     $("#entrance").css("left", $entranceCell.position().left);
-    //     break;
-    //   case "bottom":
-    //     $("#entrance").css("left", $entranceCell.position().left)
-    //                   .css("top", $entranceCell.position().top);
-    //     break;
-    // }
+  placeEntranceCell: function () {
+    var $entranceCell = $("#" + mazeModel.entrance.id)
+    $entranceCell.addClass("player");
+  },
+
+  showEntranceExit: function () {
+    var entrancePoint = mazeModel.entrance.entrancePoint
+    var $entranceCell = $("#" + mazeModel.entrance.id)
+    var $exitCell = $("#" + mazeModel.exit.id)
+    console.log($entranceCell.position());
+    console.log($exitCell.position());
+    console.log(entrancePoint);
+    switch(entrancePoint) {
+      case "top":
+        $("#entrance").addClass("glyphicon-menu-down").css("left", $entranceCell.position().left - $entranceCell.width() / 2);
+        $("#exit").addClass("glyphicon-menu-up").css({
+          "left": $exitCell.position().left - $exitCell.width() * 1.5,
+          "top": $exitCell.position().top + $exitCell.height()
+        });
+        break;
+
+      case "bottom":
+        $("#entrance").addClass("glyphicon-menu-up").css({
+          "left": $entranceCell.position().left - $entranceCell.width() / 2,
+          "top": $entranceCell.position().top + $entranceCell.width() / 2
+        });
+        $("#exit").addClass("glyphicon-menu-down").css("left", $exitCell.position().left - $exitCell.width() * 1.5);
+        break;
+
+      case "left":
+        $("#entrance").addClass("glyphicon-menu-right").css({
+          "left": $entranceCell.position().left - $entranceCell.width() * 1.5,
+          "top": $entranceCell.position().top - $entranceCell.height() / 2
+        });
+        $("#exit").addClass("glyphicon-menu-left").css({
+          "left": $exitCell.position().left,
+          "top": $exitCell.position().top
+        });
+        break;
+
+      case "right":
+        $("#entrance").addClass("glyphicon-menu-left").css({
+          "left": $entranceCell.position().left + $entranceCell.width() / 2,
+          "top": $entranceCell.position().top - $entranceCell.height() / 2
+        });
+        $("#exit").addClass("glyphicon-menu-right").css({
+          "left": $exitCell.position().left - $exitCell.width() * 3,
+          "top": $exitCell.position().top + $exitCell.height() / 2
+        });
+        break;
+    }
 
   }
 }

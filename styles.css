@@ -1,3 +1,26 @@
+/*custom fonts - Bitter, Montserrat*/
+@import url('http://fonts.googleapis.com/css?family=Montserrat|Bitter');
+/*basic reset*/
+* {margin: 0; padding: 0;}
+body {
+  background: url('http://thecodeplayer.com/u/m/b1.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+  font-family: Bitter, Helvetica;
+}
+
+h1 {
+  font: normal 32px/32px Bitter;
+  text-align: center; padding: 85px 100px;
+}
+
+.glyphicon {
+  color: #fff;
+}
+
 #maze {
     border-collapse: collapse;
 }
@@ -8,25 +31,29 @@
 }
 
 .wall-top {
-  border-top: 2px solid #333;
+  border-top: 2px solid #fff;
 }
 
 .wall-left {
-  border-left: 2px solid #333;
+  border-left: 2px solid #fff;
 }
 
 .wall-right {
-  border-right: 2px solid #333;
+  border-right: 2px solid #fff;
 }
 
 .wall-bottom {
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #fff;
 }
 
-#entrance {
+#entrance, #exit {
   position: relative;
+  height: 30px;
+  width: 30px;
+  text-align: center;
 }
 
-#exit {
-  position: relative;
+.player {
+  background-color: #70a0d0;
+  border: 1px outset #4070a0;
 }

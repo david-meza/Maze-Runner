@@ -1,0 +1,24 @@
+#maze {
+    border-collapse: collapse;
+}
+
+#maze td {
+    width: 30px;
+    height: 30px;
+}
+
+.wall-top {
+  border-top: 2px solid #333;
+}
+
+.wall-left {
+  border-left: 2px solid #333;
+}
+
+.wall-right {
+  border-right: 2px solid #333;
+}
+
+.wall-bottom {
+  border-bottom: 2px solid #333;
+}

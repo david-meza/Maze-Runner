@@ -1,4 +1,6 @@
-var mazeModel = {
+var MAZERUNNER = MAZERUNNER || {}
+
+MAZERUNNER.mazeModel = {
 
   // 2D array = [row][column]
   mazeCells: [],
@@ -20,14 +22,14 @@ var mazeModel = {
     // Generate maze
     console.log(this.mazeWidth)
     console.log(this.mazeHeight)
-    this.mazeCells = newMaze(this.mazeWidth, this.mazeHeight);
+    this.mazeCells = MAZERUNNER.MazeGenerator.newMaze(this.mazeWidth, this.mazeHeight);
     this.setBorders();
     this.setRandEntranceExit();
   },
 
   createPlayers: function () {
     // Global obj
-    player = new Runner(this.entrance, this.exit)
+    MAZERUNNER.player = new MAZERUNNER.RunnerModule.Runner(this.entrance, this.exit)
   },
 
   setBorders: function () {

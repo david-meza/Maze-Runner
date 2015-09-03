@@ -2,18 +2,19 @@
 <head>
   <title></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stylesheets/styles.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="mazegenerator.js"></script>
-  <script type="text/javascript" src="runner.js"></script>
-  <script type="text/javascript" src="mazeModel.js"></script>
-  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="javascripts/mazegenerator.js"></script>
+  <script type="text/javascript" src="javascripts/runner.js"></script>
+  <script type="text/javascript" src="javascripts/mazeModel.js"></script>
+  <script type="text/javascript" src="javascripts/view.js"></script>
+  <script type="text/javascript" src="javascripts/scores.js"></script>
+  <script type="text/javascript" src="javascripts/main.js"></script>
 </head>
 <body class="container">
 
-  <!-- <canvas width="616" height="556" id="mazecanvas">Can't load the maze game, because your browser doesn't support HTML5.</canvas> -->
   <noscript>JavaScript is not enabled. To play the game, you should enable it.</noscript>
 
   <div class="row">
@@ -38,9 +39,9 @@
     <button id = "play-again">Continue to the next level!</button>
   </div>
 
+<!--   <div id = "entrance" class = "glyphicon"></div>
+  <div id = "exit" class = "glyphicon"></div> -->
   <table id="maze">
-    <div id = "entrance" class = "glyphicon"></div>
-    <div id = "exit" class = "glyphicon"></div>
     <tbody></tbody>
   </table>
 

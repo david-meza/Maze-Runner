@@ -60,7 +60,7 @@ h4 {
 ol {
   border: 4px outset #98BF21;
   background-color: #d4f375;
-  max-width: 260px;
+  max-width: 280px;
   max-height: 100%;
   text-align: center;
   margin: 5px auto;
@@ -86,12 +86,15 @@ li {
 
 #maze {
   border-collapse: collapse;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   margin: 10px auto 0;
 }
 
 #maze td {
-  width: 30px;
-  height: 30px;
+  width: 33px;
+  height: 33px;
 }
 
 #finish {
@@ -110,19 +113,19 @@ li {
 }
 
 .wall-top {
-  border-top: 2px solid #fff;
+  border-top: 5px outset #fff !important;
 }
 
 .wall-left {
-  border-left: 2px solid #fff;
+  border-left: 5px outset #fff !important;
 }
 
 .wall-right {
-  border-right: 2px solid #fff;
+  border-right: 5px outset #fff !important;
 }
 
 .wall-bottom {
-  border-bottom: 2px solid #fff;
+  border-bottom: 5px outset #fff !important;
 }
 
 #entrance, #exit {
@@ -133,15 +136,25 @@ li {
   text-align: center;
 }
 
+.entrance {
+  background-color: #d8262c;
+  border: 3px ridge #b8060c;
+}
+
+.exit {
+  background-color: #76bd3a;
+  border: 3px ridge #569d1a;
+}
+
 .player, .ai {
-  background-image: url('link.png');
+  background-image: url('../resources/link.png');
   background-repeat: no-repeat;
   background-size: 300px 250px;
   z-index: 2;
 }
 
 .player-down {
-  background-position: 0 -4px;
+  background-position: 0 -3px;
 }
 
 .player-left {
@@ -153,7 +166,7 @@ li {
 }
 
 .player-right {
-  background-position: 0 -96px;
+  background-position: 0 -95px;
 }
 
 #play-again {

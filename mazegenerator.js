@@ -1,5 +1,7 @@
-function Cell(id) {
+function Cell(id, row, col) {
   this.id = id;
+  this.row = row;
+  this.col = col;
   this.hasTopWall = true;
   this.hasRightWall = true;
   this.hasBottomWall = true;
@@ -17,7 +19,7 @@ function newMaze(x, y) {
     cells[i] = new Array();
     unvisited[i] = new Array();
     for (var j = 0; j < x; j++) {
-      cells[i][j] = new Cell(i + "-" + j);
+      cells[i][j] = new Cell(i + "-" + j, i, j);
       unvisited[i][j] = true;
     }
   }

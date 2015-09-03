@@ -1,3 +1,60 @@
+function Runner (start, goal) {
+  this.start = start;
+  this.currentCell = start;
+  this.goal = goal;
+  this.stepsTaken = 0;
+}
+
+Runner.prototype.movePlayer = function (event) {
+  var KEY = { ESC: 27, SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40 };
+  switch(event.keyCode) {
+    case KEY.LEFT:   player.moveLeft();        break;
+    case KEY.RIGHT:  player.moveRight();       break;
+    case KEY.UP:     player.moveUp();          break;
+    case KEY.DOWN:   player.moveDown();        break;
+    case KEY.ESC:    controller.gameOver();    break;
+  }
+};
+
+Runner.prototype.moveUp = function() {
+  if (!this.currentCell.hasTopWall && this.currentCell.row - 1 >= 0) {
+    var oldCell = this.currentCell
+    this.currentCell = mazeModel.mazeCells[this.currentCell.row - 1][this.currentCell.col]
+    this.stepsTaken++;
+    view.updateRunnerPos(oldCell, this.currentCell);
+  };
+};
+
+Runner.prototype.moveDown = function() {
+  if (!this.currentCell.hasBottomWall && this.currentCell.row + 1 < mazeModel.mazeHeight) {
+    var oldCell = this.currentCell
+    this.currentCell = mazeModel.mazeCells[this.currentCell.row + 1][this.currentCell.col]
+    this.stepsTaken++;
+    view.updateRunnerPos(oldCell, this.currentCell);
+  };
+};
+
+Runner.prototype.moveLeft = function() {
+  if (!this.currentCell.hasLeftWall && this.currentCell.col - 1 >= 0) {
+    var oldCell = this.currentCell
+    this.currentCell = mazeModel.mazeCells[this.currentCell.row][this.currentCell.col - 1]
+    this.stepsTaken++;
+    view.updateRunnerPos(oldCell, this.currentCell);
+  };
+};
+
+Runner.prototype.moveRight = function() {
+  if (!this.currentCell.hasRightWall && this.currentCell.col + 1 < mazeModel.mazeWidth) {
+    var oldCell = this.currentCell
+    this.currentCell = mazeModel.mazeCells[this.currentCell.row][this.currentCell.col + 1]
+    this.stepsTaken++;
+    view.updateRunnerPos(oldCell, this.currentCell);
+  };
+};
+
+var player;
+
+
 var mazeModel = {
 
   // 2D array = [row][column]
@@ -10,6 +67,8 @@ var mazeModel = {
 
   init: function () {
     this.generateMaze();
+    this.createPlayers();
+    console.log(this.mazeCells)
   },
 
   generateMaze: function () {
@@ -17,6 +76,11 @@ var mazeModel = {
     this.mazeCells = newMaze(this.mazeWidth, this.mazeHeight);
     this.setBorders();
     this.setRandEntranceExit();
+  },
+
+  createPlayers: function () {
+    // Global obj
+    player = new Runner(this.entrance, this.exit)
   },
 
   setBorders: function () {
@@ -171,15 +235,34 @@ var view = {
         break;
     }
 
+  },
+
+  updateRunnerPos: function(oldCell, newCell) {
+    $("#" + oldCell.id).removeClass("player");
+    $("#" + newCell.id).addClass("player");
   }
+
 }
 
 var controller = {
 
+  // itvl: null,
+
   init: function () {
     mazeModel.init();
     view.init();
-  }
+    controller.setListeners();
+  },
+
+  setListeners: function () {
+    $(window).on("keydown", player.movePlayer);
+  },
+
+  // play: function () {
+  //   itvl = setInterval(function() {
+  //     view.redraw();
+  //   }, 1000/60)
+  // }
 }
 
 $(function() {

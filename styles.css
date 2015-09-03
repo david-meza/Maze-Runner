@@ -5,6 +5,7 @@
 body {
   background: url('http://thecodeplayer.com/u/m/b1.png') no-repeat center center fixed;
   background-size: cover;
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,8 +14,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font: normal 32px/32px Bitter;
-  text-align: center; padding: 85px 100px;
+  font: normal 2em;
+  text-align: center;
+  padding: 0;
+  margin: 5px 0;
 }
 
 .glyphicon {
@@ -22,12 +25,13 @@ h1 {
 }
 
 #maze {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  margin: 10px auto 0;
 }
 
 #maze td {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .wall-top {
@@ -47,6 +51,7 @@ h1 {
 }
 
 #entrance, #exit {
+/*  float: left;*/
   position: relative;
   height: 30px;
   width: 30px;

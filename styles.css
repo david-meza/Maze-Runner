@@ -137,13 +137,23 @@ li {
   background-image: url('link.png');
   background-repeat: no-repeat;
   background-size: 300px 250px;
+  z-index: 2;
 }
 
-.player {
-  /*background-position: -5px -5px;*/
+.player-down {
   background-position: 0 -4px;
-  z-index: 2;
-/*  background-color: #70a0d0;*/
+}
+
+.player-left {
+  background-position: 0 -34px;
+}
+
+.player-up {
+  background-position: 0 -64px;
+}
+
+.player-right {
+  background-position: 0 -96px;
 }
 
 #play-again {

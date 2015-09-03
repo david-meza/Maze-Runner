@@ -9,7 +9,7 @@ function Cell(id, row, col) {
   this.isBorder = false;
 }
 
-function newMaze(x, y) {
+var newMaze = function (x, y) {
 
   // Establish variables and starting grid
   var totalCells = x*y;

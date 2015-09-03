@@ -7,6 +7,10 @@ function Runner (start, goal) {
 
 Runner.prototype.movePlayer = function (event) {
   var KEY = { ESC: 27, SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40 };
+  if (player.currentCell.id === player.goal.id) {
+    controller.finishMaze();
+    return;
+  };
   switch(event.keyCode) {
     case KEY.LEFT:   player.moveLeft();        break;
     case KEY.RIGHT:  player.moveRight();       break;
@@ -60,12 +64,14 @@ var mazeModel = {
   // 2D array = [row][column]
   mazeCells: [],
   borders: [],
-  mazeWidth: 30,
-  mazeHeight: 20,
+  mazeWidth: null,
+  mazeHeight: null,
   entrance: null,
   exit: null,
 
-  init: function () {
+  init: function (w, h) {
+    this.mazeWidth = w;
+    this.mazeHeight = h;
     this.generateMaze();
     this.createPlayers();
     console.log(this.mazeCells)
@@ -73,6 +79,8 @@ var mazeModel = {
 
   generateMaze: function () {
     // Generate maze
+    console.log(this.mazeWidth)
+    console.log(this.mazeHeight)
     this.mazeCells = newMaze(this.mazeWidth, this.mazeHeight);
     this.setBorders();
     this.setRandEntranceExit();
@@ -164,6 +172,7 @@ var view = {
     this.buildMazeWalls();
     this.placeEntranceCell();
     this.showEntranceExit();
+    this.$highscores = $("#highscores");
   },
 
   buildMazeWalls: function () {
@@ -240,29 +249,107 @@ var view = {
   updateRunnerPos: function(oldCell, newCell) {
     $("#" + oldCell.id).removeClass("player");
     $("#" + newCell.id).addClass("player");
-  }
+  },
+
+  toggleFinish: function() {
+    this.updateHighScores(scores.top());
+    $("#finish").toggleClass("hidden");
+  },
+
+  updateTime: function () {
+    $("#minutes").text( (Math.floor(scores.time / 60) < 10) ? "0" + Math.floor(scores.time / 60) : Math.floor(scores.time / 60) )
+    $("#seconds").text( (scores.time % 60 < 10) ? "0" + scores.time % 60 : scores.time % 60)
+    $("#score").text( scores.currentScore)
+  },
+
+  updateHighScores: function(scores){
+    console.log(this.$highscores)
+    this.$highscores.empty();
+    scores.forEach(function(score){
+      view.$highscores.append("<li>" + score + "</li>");
+    })
+  },
+}
+
+var scores = {
+
+  all: [],
+  time: 0,
+  currentScore: 1000,
+  mazesCompleted: 0,
+
+  sortNum: function (a, b) {
+    return b-a;
+  },
+
+  top: function(){
+    return this.all.sort(this.sortNum).slice(0,Math.min(this.all.length, 5));
+  },
+
+  increaseTime: function() {
+    console.log(this.time)
+    this.time++;
+    this.currentScore -= Math.floor(this.time * (Math.pow(this.time, 1/5)));
+    if (this.currentScore < 0) this.currentScore = 0;
+  },
+
+  submitScore: function() {
+    this.all.push(this.currentScore)
+  },
 
 }
 
 var controller = {
 
-  // itvl: null,
+  itvl: null,
+  currentWidth: 4,
+  currentHeight: 4,
 
   init: function () {
-    mazeModel.init();
+    mazeModel.init(this.currentWidth, this.currentHeight);
     view.init();
     controller.setListeners();
+    controller.play();
   },
 
   setListeners: function () {
     $(window).on("keydown", player.movePlayer);
+    $("#play-again").click(controller.createNextMaze);
   },
 
-  // play: function () {
-  //   itvl = setInterval(function() {
-  //     view.redraw();
-  //   }, 1000/60)
-  // }
+  finishMaze: function () {
+    scores.submitScore();
+    view.toggleFinish();
+    clearInterval(this.itvl)
+    $(window).off();
+  },
+
+  play: function () {
+    this.itvl = setInterval(function() {
+      console.log("counting...")
+      scores.increaseTime();
+      view.updateTime();
+    }, 1000)
+  },
+
+  createNextMaze: function() {
+    // Completion bonus
+    scores.mazesCompleted++;
+    scores.currentScore += 1000 * scores.mazesCompleted // Bonus!
+    // Reset old maze
+    scores.time = 0;
+    view.toggleFinish();
+    mazeModel.mazeCells = [];
+    mazeModel.borders = [];
+    $('#maze tbody').empty();
+    // Create new one
+    if (controller.currentHeight <= 20) controller.currentHeight += 2;
+    if (controller.currentWidth <= 40) controller.currentWidth += 2;
+    mazeModel.init(controller.currentWidth, controller.currentHeight);
+    view.init();
+    $(window).on("keydown", player.movePlayer);
+    controller.play();
+  },
 }
 
 $(function() {

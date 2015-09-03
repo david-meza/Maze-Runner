@@ -14,13 +14,34 @@
   <!-- <canvas width="616" height="556" id="mazecanvas">Can't load the maze game, because your browser doesn't support HTML5.</canvas> -->
   <noscript>JavaScript is not enabled. To play the game, you should enable it.</noscript>
 
-  <h1>Score:<span id = "score">0</span></h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <h2>Score:<span id = "score">0</span></h2>
+    </div>
+    <div class="col-sm-6">
+      <h2>Time Elapsed <span id = "minutes">00</span>:<span id = "seconds">00</span></h2>
+    </div>
+  </div>
+
+  <div id="finish" class = "hidden">
+    <div class = "message-box">
+      <h3>Congratulations!</h3>
+      <h4>*You finished the maze*</h4>
+    </div>
+
+    <div>
+      <ol id="highscores">
+      </ol>
+    </div>
+    <button id = "play-again">Continue to the next level!</button>
+  </div>
 
   <table id="maze">
     <div id = "entrance" class = "glyphicon"></div>
     <div id = "exit" class = "glyphicon"></div>
     <tbody></tbody>
   </table>
+
 
 </body>
 </html>

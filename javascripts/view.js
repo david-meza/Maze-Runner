@@ -21,6 +21,8 @@ MAZERUNNER.view = {
         if (cells[i][j].hasRightWall) { $('#'+selector).addClass("wall-right"); }
         if (cells[i][j].hasBottomWall) { $('#'+selector).addClass("wall-bottom"); }
         if (cells[i][j].hasLeftWall) { $('#'+selector).addClass("wall-left"); }
+        console.log(cells[i][j].bonus)
+        if (cells[i][j].bonus) { $('#'+selector).addClass(cells[i][j].bonus); }
       }
       $('#maze tbody').append("</tr>");
     }
@@ -98,6 +100,10 @@ MAZERUNNER.view = {
   showGameOver: function() {
     $("#best-score").append("<li>" + (MAZERUNNER.scores.top()[0] || 0) + "</li>");
     $("#game-over").removeClass("hidden");
+  },
+
+  removeBonusClass: function (cell) {
+    $("#" + cell.id).removeClass(cell.bonus);
   },
 
   updateTime: function () {

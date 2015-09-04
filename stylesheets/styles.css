@@ -200,6 +200,10 @@ li {
   background-position: 0 -95px;
 }
 
+.purple-rupee, .cyan-rupee, .blue-rupee, .pink-rupee, .green-rupee, .gold-rupee, .red-rupee {
+  background-color: royalblue;
+}
+
 #next-maze {
   -moz-box-shadow:inset 0px 1px 0px 0px #a6827e;
   -webkit-box-shadow:inset 0px 1px 0px 0px #a6827e;

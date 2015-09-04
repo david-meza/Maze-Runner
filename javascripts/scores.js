@@ -6,6 +6,7 @@ MAZERUNNER.scores = {
   time: 0,
   currentScore: 1000,
   mazesCompleted: 0,
+  frames: 0,
 
   sortNum: function (a, b) {
     return b-a;
@@ -16,10 +17,12 @@ MAZERUNNER.scores = {
   },
 
   increaseTime: function() {
-    console.log(this.time)
-    this.time++;
-    this.currentScore -= Math.floor(this.time * (Math.pow(this.time, 1/5)));
-    if (this.currentScore < 0) this.currentScore = 0;
+    this.frames++;
+    if (this.frames % 60 == 0) {
+      this.time++;
+      this.currentScore -= Math.floor(this.time * (Math.pow(this.time, 1/(this.mazesCompleted + 1))));
+      if (this.currentScore < 0) this.currentScore = 0;
+    };
   },
 
   submitScore: function() {

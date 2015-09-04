@@ -35,7 +35,7 @@ MAZERUNNER.controller = {
       MAZERUNNER.scores.increaseTime();
       MAZERUNNER.view.updateTime();
       MAZERUNNER.ai.moveAI();
-    }, 1000)
+    }, 1000 / 60)
   },
 
   gameOver: function () {
@@ -55,7 +55,7 @@ MAZERUNNER.controller = {
     MAZERUNNER.mazeModel.borders = [];
     $('#maze tbody').empty();
     // Create new one
-    if (MAZERUNNER.controller.currentHeight <= 20) MAZERUNNER.controller.currentHeight += 2;
+    if (MAZERUNNER.controller.currentHeight <= 18) MAZERUNNER.controller.currentHeight += 2;
     if (MAZERUNNER.controller.currentWidth <= 32) MAZERUNNER.controller.currentWidth += 2;
     MAZERUNNER.mazeModel.init(MAZERUNNER.controller.currentWidth, MAZERUNNER.controller.currentHeight);
     MAZERUNNER.view.init();

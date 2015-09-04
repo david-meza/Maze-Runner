@@ -25,6 +25,7 @@ MAZERUNNER.RunnerModule = (function () {
   };
 
   Runner.prototype.moveAI = function () {
+    if (MAZERUNNER.scores.frames % Math.min((30 + MAZERUNNER.scores.mazesCompleted * 2), 60) != 0) return;
     var oldCell = this.currentCell
     console.log(this.solution)
     if (this.solution.length > 0) {
@@ -43,6 +44,10 @@ MAZERUNNER.RunnerModule = (function () {
       this.stepsTaken++;
       MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-up");
     };
+    if (this.currentCell.bonus) {
+      // MAZERUNNER.scores.applyBonus();
+      MAZERUNNER.view.removeBonusClass(this.currentCell);
+    };
   };
 
   Runner.prototype.moveDown = function() {
@@ -51,6 +56,10 @@ MAZERUNNER.RunnerModule = (function () {
       this.currentCell = MAZERUNNER.mazeModel.mazeCells[this.currentCell.row + 1][this.currentCell.col]
       this.stepsTaken++;
       MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-down");
+    };
+    if (this.currentCell.bonus) {
+      // MAZERUNNER.scores.applyBonus();
+      MAZERUNNER.view.removeBonusClass(this.currentCell);
     };
   };
 
@@ -61,6 +70,10 @@ MAZERUNNER.RunnerModule = (function () {
       this.stepsTaken++;
       MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-left");
     };
+    if (this.currentCell.bonus) {
+      // MAZERUNNER.scores.applyBonus();
+      MAZERUNNER.view.removeBonusClass(this.currentCell);
+    };
   };
 
   Runner.prototype.moveRight = function() {
@@ -69,6 +82,10 @@ MAZERUNNER.RunnerModule = (function () {
       this.currentCell = MAZERUNNER.mazeModel.mazeCells[this.currentCell.row][this.currentCell.col + 1]
       this.stepsTaken++;
       MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-right");
+    };
+    if (this.currentCell.bonus) {
+      // MAZERUNNER.scores.applyBonus();
+      MAZERUNNER.view.removeBonusClass(this.currentCell);
     };
   };
 

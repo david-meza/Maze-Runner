@@ -15,16 +15,24 @@ MAZERUNNER.mazeModel = {
     this.mazeHeight = h;
     this.generateMaze();
     this.createPlayers();
-    console.log(this.mazeCells)
   },
 
   generateMaze: function () {
-    // Generate maze
-    console.log(this.mazeWidth)
-    console.log(this.mazeHeight)
     this.mazeCells = MAZERUNNER.MazeGenerator.newMaze(this.mazeWidth, this.mazeHeight);
     this.setBorders();
     this.setRandEntranceExit();
+    this.generateRandomBonuses();
+  },
+
+  generateRandomBonuses: function () {
+    // Places freebies according to maze size
+    var freebies = ["purple-rupee", "cyan-rupee", "blue-rupee", "pink-rupee", "green-rupee", "gold-rupee", "red-rupee"]
+    var targetCells = MAZERUNNER.getRandomSubarray(this.mazeCells[Math.floor(Math.random() * this.mazeHeight)], Math.floor(this.mazeWidth / 2))
+    console.log(targetCells)
+    for (var i = 0; i < targetCells.length; i++) {
+      targetCells[i].bonus = freebies[Math.floor(Math.random() * 6)]
+    };
+    console.log(targetCells)
   },
 
   createPlayers: function () {
@@ -107,4 +115,15 @@ MAZERUNNER.mazeModel = {
     console.log(this.exit);
   }
 
+}
+
+MAZERUNNER.getRandomSubarray = function(arr, size) {
+  var shuffled = arr.slice(0), i = arr.length, temp, index;
+  while (i--) {
+      index = Math.floor((i + 1) * Math.random());
+      temp = shuffled[index];
+      shuffled[index] = shuffled[i];
+      shuffled[i] = temp;
+  }
+  return shuffled.slice(0, size);
 }

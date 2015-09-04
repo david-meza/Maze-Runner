@@ -201,7 +201,10 @@ li {
 }
 
 .purple-rupee, .cyan-rupee, .blue-rupee, .pink-rupee, .green-rupee, .gold-rupee, .red-rupee {
-  background-color: royalblue;
+  background-image: url('../resources/rupees.png');
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  z-index: 1;
 }
 
 #next-maze {

@@ -7,10 +7,12 @@ MAZERUNNER.AIModule = (function () {
   var findSolution = function (entrance, exit, maze) {
     var stack = [entrance];
     var stepsTaken = [];
+
     while (stack.length > 0) {
       currentCell = stack.pop();
       stepsTaken.push(currentCell);
       currentCell.visited = true;
+
       if (!currentCell.hasTopWall) {
         var topCell = maze[currentCell.row - 1][currentCell.col]
         if (!topCell.visited) stack.push(topCell);

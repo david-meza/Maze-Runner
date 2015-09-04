@@ -124,7 +124,7 @@ li {
 #finish, #game-over {
   position: absolute;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 40px;
   font-size: 3em;
   text-align: center;
   height: 100%;

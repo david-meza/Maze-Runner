@@ -2,11 +2,12 @@ var MAZERUNNER = MAZERUNNER || {};
 
 MAZERUNNER.RunnerModule = (function () {
 
-  function Runner (start, goal) {
+  function Runner (start, goal, sol) {
     this.start = start;
     this.currentCell = start;
     this.goal = goal;
     this.stepsTaken = 0;
+    this.solution = sol || [];
   }
 
   Runner.prototype.movePlayer = function (event) {
@@ -23,12 +24,24 @@ MAZERUNNER.RunnerModule = (function () {
     };
   };
 
+  Runner.prototype.moveAI = function () {
+    var oldCell = this.currentCell
+    console.log(this.solution)
+    if (this.solution.length > 0) {
+      this.currentCell = this.solution.shift();
+    } else {
+      MAZERUNNER.controller.gameOver();
+    };
+    this.stepsTaken++;
+    MAZERUNNER.view.updateAIPos(oldCell, this.currentCell, "ai");
+  };
+
   Runner.prototype.moveUp = function() {
     if (!this.currentCell.hasTopWall && this.currentCell.row - 1 >= 0) {
       var oldCell = this.currentCell
       this.currentCell = MAZERUNNER.mazeModel.mazeCells[this.currentCell.row - 1][this.currentCell.col]
       this.stepsTaken++;
-      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player-up");
+      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-up");
     };
   };
 
@@ -37,7 +50,7 @@ MAZERUNNER.RunnerModule = (function () {
       var oldCell = this.currentCell
       this.currentCell = MAZERUNNER.mazeModel.mazeCells[this.currentCell.row + 1][this.currentCell.col]
       this.stepsTaken++;
-      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player-down");
+      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-down");
     };
   };
 
@@ -46,7 +59,7 @@ MAZERUNNER.RunnerModule = (function () {
       var oldCell = this.currentCell
       this.currentCell = MAZERUNNER.mazeModel.mazeCells[this.currentCell.row][this.currentCell.col - 1]
       this.stepsTaken++;
-      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player-left");
+      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-left");
     };
   };
 
@@ -55,7 +68,7 @@ MAZERUNNER.RunnerModule = (function () {
       var oldCell = this.currentCell
       this.currentCell = MAZERUNNER.mazeModel.mazeCells[this.currentCell.row][this.currentCell.col + 1]
       this.stepsTaken++;
-      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player-right");
+      MAZERUNNER.view.updateRunnerPos(oldCell, this.currentCell, "player player-right");
     };
   };
 

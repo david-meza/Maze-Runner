@@ -15,7 +15,12 @@ MAZERUNNER.controller = {
 
   setListeners: function () {
     $(window).on("keydown", MAZERUNNER.player.movePlayer);
-    $("#play-again").click(MAZERUNNER.controller.createNextMaze);
+    $("#next-maze").click(MAZERUNNER.controller.createNextMaze);
+    $("#game-over").click(MAZERUNNER.controller.refreshGame);
+  },
+
+  refreshGame: function () {
+    location.reload();
   },
 
   finishMaze: function () {
@@ -27,10 +32,16 @@ MAZERUNNER.controller = {
 
   play: function () {
     this.itvl = setInterval(function() {
-      console.log("counting...")
       MAZERUNNER.scores.increaseTime();
       MAZERUNNER.view.updateTime();
+      MAZERUNNER.ai.moveAI();
     }, 1000)
+  },
+
+  gameOver: function () {
+    MAZERUNNER.view.showGameOver();
+    clearInterval(this.itvl)
+    $(window).off();
   },
 
   createNextMaze: function() {

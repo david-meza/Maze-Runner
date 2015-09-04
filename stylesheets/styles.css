@@ -41,20 +41,44 @@ h4 {
   font-weight: 200;
   text-align: center;
   margin: 2px 0;
+  padding: 2px 0;
   color: #569D1A;
   box-shadow: 3px 3px 3px #333;
   background-color: #e4ff85;
   display: block;
 }
 
-.message-box {
-  border: 4px outset #98BF21;
-  background-color: #d4f375;
+.message-box, .lose {
   max-width: 500px;
   max-height: 100%;
   text-align: center;
   margin: 0 auto;
   border-radius: 4px;
+}
+
+.message-box {
+  border: 4px outset #98BF21;
+  background-color: #d4f375;
+}
+
+.lose {
+  border: 4px outset #b8060c;
+  background-color: #d8262c;
+}
+
+.lose h4 {
+  background-color: #98262c;
+  color: #fff;
+}
+
+#best-score {
+  background-color: #C10D29;
+  border: 4px outset #a10d09;
+}
+
+#best-score li {
+  border: 3px ridge #BE3515;
+  background-color: #EE6545;
 }
 
 ol {
@@ -70,9 +94,9 @@ ol {
 
 li {
   border: 3px ridge #98BF21;
+  background-color: #a8dF41;
   height: 55px;
   width: 150px;
-  background-color: #a8dF41;
   font-size: 38px;
   color: #fff;
   text-align: center;
@@ -97,7 +121,7 @@ li {
   height: 33px;
 }
 
-#finish {
+#finish, #game-over {
   position: absolute;
   margin: 0 auto;
   margin-top: 100px;
@@ -146,11 +170,18 @@ li {
   border: 3px ridge #569d1a;
 }
 
-.player, .ai {
+.ai {
+  background-image: url('../resources/tallis.png');
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  z-index: 2;
+}
+
+.player {
   background-image: url('../resources/link.png');
   background-repeat: no-repeat;
   background-size: 300px 250px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .player-down {
@@ -169,7 +200,7 @@ li {
   background-position: 0 -95px;
 }
 
-#play-again {
+#next-maze {
   -moz-box-shadow:inset 0px 1px 0px 0px #a6827e;
   -webkit-box-shadow:inset 0px 1px 0px 0px #a6827e;
   box-shadow:inset 0px 1px 0px 0px #a6827e;
@@ -193,7 +224,7 @@ li {
   text-decoration:none;
   text-shadow:0px 1px 0px #4d3534;
 }
-#play-again:hover {
+#next-maze:hover {
   background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #634b30), color-stop(1, #7d5d3b));
   background:-moz-linear-gradient(top, #634b30 5%, #7d5d3b 100%);
   background:-webkit-linear-gradient(top, #634b30 5%, #7d5d3b 100%);
@@ -202,6 +233,45 @@ li {
   background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#634b30', endColorstr='#7d5d3b',GradientType=0);
   background-color:#634b30;
+}
+#next-maze:active {
+  position:relative;
+  top:1px;
+}
+
+#play-again {
+  -moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;
+  box-shadow:inset 0px 1px 0px 0px #cf866c;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+  background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+  background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+  background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+  background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+  background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+  background-color:#d0451b;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  border:1px solid #942911;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-size:0.75em;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #854629;
+}
+#play-again:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
+  background:-moz-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+  background:-webkit-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+  background:-o-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+  background:-ms-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+  background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b',GradientType=0);
+  background-color:#bc3315;
 }
 #play-again:active {
   position:relative;

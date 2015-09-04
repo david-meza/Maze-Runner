@@ -28,8 +28,10 @@ MAZERUNNER.mazeModel = {
   },
 
   createPlayers: function () {
-    // Global obj
+    // Namespace obj
     MAZERUNNER.player = new MAZERUNNER.RunnerModule.Runner(this.entrance, this.exit)
+    var sol = MAZERUNNER.AIModule.findSolution(this.entrance, this.exit, this.mazeCells)
+    MAZERUNNER.ai = new MAZERUNNER.RunnerModule.Runner(this.entrance, this.exit, sol)
   },
 
   setBorders: function () {
@@ -71,32 +73,32 @@ MAZERUNNER.mazeModel = {
       // Entrance value is a top border
       var exitVal = Math.floor(Math.random() * this.mazeWidth) * 2 + 1;
       this.exit = this.borders[exitVal]
-      this.entrance.hasTopWall = false;
+      // this.entrance.hasTopWall = false;
       this.entrance.entrancePoint = "top";
-      this.exit.hasBottomWall = false;
+      // this.exit.hasBottomWall = false;
 
     } else if (entranceVal <= this.mazeWidth * 2 - 2 && entranceVal % 2 === 1) {
       // Entrance value is a bottom border
       var exitVal = Math.floor(Math.random() * this.mazeWidth) * 2;
       this.exit = this.borders[exitVal]
-      this.entrance.hasBottomWall = false;
-      this.exit.hasTopWall = false;
+      // this.entrance.hasBottomWall = false;
+      // this.exit.hasTopWall = false;
       this.entrance.entrancePoint = "bottom";
 
     } else if (entranceVal % 2 === 0) {
       // Entrance value is a left border
       var exitVal = Math.floor(Math.random() * this.mazeHeight) * 2 + this.mazeWidth * 2 + 1;
       this.exit = this.borders[exitVal]
-      this.entrance.hasLeftWall = false;
-      this.exit.hasRightWall = false;
+      // this.entrance.hasLeftWall = false;
+      // this.exit.hasRightWall = false;
       this.entrance.entrancePoint = "left";
 
     } else if (entranceVal % 2 === 1) {
       // Entrance value is a right border
       var exitVal = Math.floor(Math.random() * this.mazeHeight) * 2 + this.mazeWidth * 2;
       this.exit = this.borders[exitVal]
-      this.entrance.hasRightWall = false;
-      this.exit.hasLeftWall = false;
+      // this.entrance.hasRightWall = false;
+      // this.exit.hasLeftWall = false;
       this.entrance.entrancePoint = "right";
     };
     console.log(entranceVal);

@@ -82,12 +82,22 @@ MAZERUNNER.view = {
 
   updateRunnerPos: function(oldCell, newCell, newClass) {
     $("#" + oldCell.id).removeClass("player player-right player-left player-up player-down");
-    $("#" + newCell.id).addClass("player " + newClass);
+    $("#" + newCell.id).addClass(newClass);
+  },
+
+  updateAIPos: function(oldCell, newCell, newClass) {
+    $("#" + oldCell.id).removeClass("ai ai-right ai-left ai-up ai-down");
+    $("#" + newCell.id).addClass(newClass);
   },
 
   toggleFinish: function() {
     this.updateHighScores(MAZERUNNER.scores.top());
     $("#finish").toggleClass("hidden");
+  },
+
+  showGameOver: function() {
+    $("#best-score").append("<li>" + (MAZERUNNER.scores.top()[0] || 0) + "</li>");
+    $("#game-over").removeClass("hidden");
   },
 
   updateTime: function () {

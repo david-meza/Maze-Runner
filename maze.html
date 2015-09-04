@@ -9,6 +9,7 @@
   <script type="text/javascript" src="javascripts/mazegenerator.js"></script>
   <script type="text/javascript" src="javascripts/runner.js"></script>
   <script type="text/javascript" src="javascripts/mazeModel.js"></script>
+  <script type="text/javascript" src="javascripts/ai.js"></script>
   <script type="text/javascript" src="javascripts/view.js"></script>
   <script type="text/javascript" src="javascripts/scores.js"></script>
   <script type="text/javascript" src="javascripts/main.js"></script>
@@ -36,7 +37,20 @@
       <ol id="highscores">
       </ol>
     </div>
-    <button id = "play-again">Continue to the next level!</button>
+    <button id = "next-maze">Continue to the next level!</button>
+  </div>
+
+  <div id="game-over" class = "hidden">
+    <div class = "lose">
+      <h3>Game Over</h3>
+      <h4>*The AI beat you to the finish line!*</h4>
+    </div>
+
+    <div>
+      <ol id="best-score">
+      </ol>
+    </div>
+    <button id = "play-again">Click to play again!</button>
   </div>
 
 <!--   <div id = "entrance" class = "glyphicon"></div>
